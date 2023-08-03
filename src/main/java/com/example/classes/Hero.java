@@ -28,4 +28,29 @@ public abstract class Hero {
         this.equipment.put(Slots.Legs, null);
     }
 
+    // Methods
+    public void levelUp() {
+
+    }
+
+    public void equipWeapon() {
+
+    }
+
+    public int damage() {
+        int heroDamage = 0;
+
+        return heroDamage;
+    }
+
+    public int totalAttribute() {
+        int totalAttributes = 0;
+
+        return totalAttributes;
+    }
+
+    public void display() {
+
+    }
+
 }

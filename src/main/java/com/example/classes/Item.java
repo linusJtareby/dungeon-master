@@ -28,4 +28,19 @@ public abstract class Item {
         Body,
         Legs
     }
+
+    public String name;
+    public int requiredLevel;
+    public Slots slot;
+
+    public Item(String name, int requiredLevel, Slots slot) {
+        this.name = name;
+        this.requiredLevel = requiredLevel;
+        this.slot = slot;
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
