@@ -2,6 +2,7 @@ package com.example.classes;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import com.example.classes.Item.ArmorTypes;
 import com.example.classes.Item.Slots;
@@ -34,6 +35,14 @@ public abstract class Hero {
         this.equipment.put(Slots.Legs, null);
     }
 
+    public int getLevel() {
+        return level;
+    }
+
+    public HashMap<Slots, Item> getEquipment() {
+        return equipment;
+    }
+
     // Methods
     public void levelUp() {
         this.level++;
@@ -45,7 +54,7 @@ public abstract class Hero {
         }
         if (this instanceof Archer) {
             this.heroAttribute.strength++;
-            this.heroAttribute.dexterity += 7;
+            this.heroAttribute.dexterity += 5;
             this.heroAttribute.intelligence++;
         }
         if (this instanceof Swashbuckler) {
@@ -69,10 +78,11 @@ public abstract class Hero {
                     this.equipment.put(slot, armorToEquip);
 
                 } else {
-                    System.out.println("This armor is not valid for your class");
+                    throw new IllegalAccessError("\"This armor is not valid for your class\"");
                 }
             } else {
-                System.out.println("You need to be level " + armorToEquip.requiredLevel + " to equip this item");
+                throw new IllegalAccessError(
+                        "\"You need to be a level " + armorToEquip.requiredLevel + " to equip this weapon\"");
             }
         }
     }
@@ -82,10 +92,12 @@ public abstract class Hero {
             if (this.validWeaponTypes.contains(weaponToEquip.weaponType)) {
                 this.equipment.put(Slots.Weapon, weaponToEquip);
             } else {
-                System.out.println("This weapon is not valid for your class");
+                throw new IllegalAccessError("\"This weapon is not valid for your class\"");
             }
         } else {
-            System.out.println("You need to be level " + weaponToEquip.requiredLevel + " to equip this item");
+            throw new IllegalAccessError(
+                    "\"You need to be a level " + weaponToEquip.requiredLevel + " to equip this weapon\"");
+
         }
     }
 
@@ -114,31 +126,13 @@ public abstract class Hero {
     }
 
     public int totalAttribute() {
-
-        // Casting type armor to the Item in the hashmap to be able to
-        // get to the armorattributes.
-        Armor equippedHeadArmor = (Armor) this.equipment.get(Slots.Head);
-        Armor equippedBodyArmor = (Armor) this.equipment.get(Slots.Body);
-        Armor equippedLegArmor = (Armor) this.equipment.get(Slots.Weapon);
-        for (int i = 0; i < this.equipment.size(); i++) {
-
+        int totalAttributes = 0;
+        for (Entry<Slots, Item> armorHash : equipment.entrySet()) {
+            Armor armor = (Armor) armorHash.getValue();
+            totalAttributes = armor.armorAttributes.dexterity + armor.armorAttributes.intelligence
+                    + armor.armorAttributes.strength;
         }
-
-        int totalExtraAttributesHead = equippedHeadArmor.armorAttributes.dexterity
-                + equippedHeadArmor.armorAttributes.intelligence + equippedHeadArmor.armorAttributes.strength;
-        int totalExtraAttributesBody = equippedBodyArmor.armorAttributes.dexterity
-                + equippedBodyArmor.armorAttributes.intelligence + equippedBodyArmor.armorAttributes.strength;
-        int totalExtraAttributesLeg = equippedLegArmor.armorAttributes.dexterity
-                + equippedLegArmor.armorAttributes.intelligence + equippedLegArmor.armorAttributes.strength;
-
-        int totalExtraAttributes = totalExtraAttributesHead + totalExtraAttributesBody + totalExtraAttributesLeg;
-
-        int totalAttributes = this.heroAttribute.dexterity + this.heroAttribute.intelligence
-                + this.heroAttribute.strength
-                + this.level
-                + totalExtraAttributes;
-
-        return totalAttributes;
+        return totalAttributes + this.dexterity + this.intelligence + this.strength;
     }
 
     public void display() {
