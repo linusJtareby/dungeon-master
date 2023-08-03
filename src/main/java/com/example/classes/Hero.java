@@ -92,17 +92,69 @@ public abstract class Hero {
     public int damage() {
         int heroDamage = 0;
 
+        // Casting type Weapon to the Item in the hashmap to be able to
+        // get to the weapon attributes.
+        Weapon equippedWeapon = (Weapon) this.equipment.get(Slots.Weapon);
+        if (this instanceof Wizard) {
+            heroDamage += (1 + this.heroAttribute.intelligence / 100) * equippedWeapon.weaponDamage;
+            this.equipment.get(Slots.Weapon);
+        }
+        if (this instanceof Archer) {
+            heroDamage += (1 + this.heroAttribute.dexterity / 100) * equippedWeapon.weaponDamage;
+
+        }
+        if (this instanceof Swashbuckler) {
+            heroDamage += (1 + this.heroAttribute.dexterity / 100) * equippedWeapon.weaponDamage;
+
+        }
+        if (this instanceof Barbarian) {
+            heroDamage += (1 + this.heroAttribute.strength / 100) * equippedWeapon.weaponDamage;
+        }
         return heroDamage;
     }
 
     public int totalAttribute() {
-        int totalAttributes = 0;
+
+        // Casting type armor to the Item in the hashmap to be able to
+        // get to the armorattributes.
+        Armor equippedHeadArmor = (Armor) this.equipment.get(Slots.Head);
+        Armor equippedBodyArmor = (Armor) this.equipment.get(Slots.Body);
+        Armor equippedLegArmor = (Armor) this.equipment.get(Slots.Weapon);
+        for (int i = 0; i < this.equipment.size(); i++) {
+
+        }
+
+        int totalExtraAttributesHead = equippedHeadArmor.armorAttributes.dexterity
+                + equippedHeadArmor.armorAttributes.intelligence + equippedHeadArmor.armorAttributes.strength;
+        int totalExtraAttributesBody = equippedBodyArmor.armorAttributes.dexterity
+                + equippedBodyArmor.armorAttributes.intelligence + equippedBodyArmor.armorAttributes.strength;
+        int totalExtraAttributesLeg = equippedLegArmor.armorAttributes.dexterity
+                + equippedLegArmor.armorAttributes.intelligence + equippedLegArmor.armorAttributes.strength;
+
+        int totalExtraAttributes = totalExtraAttributesHead + totalExtraAttributesBody + totalExtraAttributesLeg;
+
+        int totalAttributes = this.heroAttribute.dexterity + this.heroAttribute.intelligence
+                + this.heroAttribute.strength
+                + this.level
+                + totalExtraAttributes;
 
         return totalAttributes;
     }
 
     public void display() {
 
+        StringBuilder heroDetails = new StringBuilder();
+
+        heroDetails.append(" Name: " + this.name
+                + " Class: " + "heroClass"
+                + " Level: " + this.level
+                + " Total strength: " + this.heroAttribute.strength
+                + " Total dexterity: " + this.heroAttribute.dexterity
+                + " Total intelligence: " + this.heroAttribute.intelligence
+                + " Damage: " + this.damage()
+                + " " + this.equipment.toString());
+
+        System.out.println(heroDetails);
     }
 
 }

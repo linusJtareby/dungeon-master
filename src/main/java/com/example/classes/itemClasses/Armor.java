@@ -6,7 +6,7 @@ import com.example.classes.Item;
 public class Armor extends Item {
 
     public ArmorTypes armorType;
-    HeroAttribute armorAttributes;
+    public HeroAttribute armorAttributes;
 
     public Armor(String name, ArmorTypes armorType, Slots slot, int requiredLevel, int strength, int dexterity,
             int intelligence) {
