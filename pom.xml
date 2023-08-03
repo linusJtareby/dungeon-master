@@ -14,15 +14,15 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>2</maven.compiler.source>
-    <maven.compiler.target>2</maven.compiler.target>
+    <maven.compiler.source>20</maven.compiler.source>
+    <maven.compiler.target>20</maven.compiler.target>
   </properties>
 
   <dependencies>
     <dependency>
-     <groupId>org.junit.jupiter</groupId>
+      <groupId>org.junit.jupiter</groupId>
      <artifactId>junit-jupiter-engine</artifactId>
-      <version>5.10.0</version>
+     <version>5.10.0</version>
     </dependency>
   </dependencies>
 
