@@ -41,6 +41,10 @@ public abstract class Hero {
         return equipment;
     }
 
+    public String getName() {
+        return name;
+    }
+
     // Methods
     public void levelUp() {
         this.level++;
