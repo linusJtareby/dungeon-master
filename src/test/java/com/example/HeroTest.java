@@ -92,7 +92,14 @@ public class HeroTest {
     }
 
     @Test
-    public void testTotalAttributes() {
+    public void testTotalAttributes_equippedArmor_levelTwo() {
+        Hero barbarian = new Barbarian("Barbarian1");
+        Armor plate = new Armor("Plate1", ArmorTypes.Plate, Slots.Body, 2, 2, 2, 2);
+        barbarian.levelUp();
+        barbarian.equipArmor(Slots.Body, plate);
+        barbarian.totalAttribute();
+
+        assertTrue(barbarian.totalAttribute() == 5 + 3 + 2 + 2 + 1 + 1 + 2 + 2 + 2);
 
     }
 

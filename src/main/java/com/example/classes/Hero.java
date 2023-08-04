@@ -107,32 +107,42 @@ public abstract class Hero {
         // Casting type Weapon to the Item in the hashmap to be able to
         // get to the weapon attributes.
         Weapon equippedWeapon = (Weapon) this.equipment.get(Slots.Weapon);
-        if (this instanceof Wizard) {
-            heroDamage += (1 + this.heroAttribute.intelligence / 100) * equippedWeapon.weaponDamage;
-            this.equipment.get(Slots.Weapon);
-        }
-        if (this instanceof Archer) {
-            heroDamage += (1 + this.heroAttribute.dexterity / 100) * equippedWeapon.weaponDamage;
 
-        }
-        if (this instanceof Swashbuckler) {
-            heroDamage += (1 + this.heroAttribute.dexterity / 100) * equippedWeapon.weaponDamage;
+        if (this.equipment.get(Slots.Weapon) != null) {
 
+            if (this instanceof Wizard) {
+                heroDamage += (1 + this.heroAttribute.intelligence / 100) * equippedWeapon.weaponDamage;
+                this.equipment.get(Slots.Weapon);
+            }
+            if (this instanceof Archer) {
+                heroDamage += (1 + this.heroAttribute.dexterity / 100) * equippedWeapon.weaponDamage;
+
+            }
+            if (this instanceof Swashbuckler) {
+                heroDamage += (1 + this.heroAttribute.dexterity / 100) * equippedWeapon.weaponDamage;
+
+            }
+            if (this instanceof Barbarian) {
+                heroDamage += (1 + this.heroAttribute.strength / 100) * equippedWeapon.weaponDamage;
+            }
+        } else {
+            return heroDamage;
         }
-        if (this instanceof Barbarian) {
-            heroDamage += (1 + this.heroAttribute.strength / 100) * equippedWeapon.weaponDamage;
-        }
+
         return heroDamage;
     }
 
     public int totalAttribute() {
         int totalAttributes = 0;
-        for (Entry<Slots, Item> armorHash : equipment.entrySet()) {
+        for (Entry<Slots, Item> armorHash : this.equipment.entrySet()) {
             Armor armor = (Armor) armorHash.getValue();
-            totalAttributes = armor.armorAttributes.dexterity + armor.armorAttributes.intelligence
-                    + armor.armorAttributes.strength;
+            if (armor != null) {
+                totalAttributes = armor.armorAttributes.dexterity + armor.armorAttributes.intelligence
+                        + armor.armorAttributes.strength;
+            }
         }
-        return totalAttributes + this.dexterity + this.intelligence + this.strength;
+        return totalAttributes + this.heroAttribute.dexterity + this.heroAttribute.intelligence
+                + this.heroAttribute.strength;
     }
 
     public void display() {
@@ -140,7 +150,7 @@ public abstract class Hero {
         StringBuilder heroDetails = new StringBuilder();
 
         heroDetails.append(" Name: " + this.name
-                + " Class: " + "heroClass"
+                + " Class: " + this.getClass().getSimpleName()
                 + " Level: " + this.level
                 + " Total strength: " + this.heroAttribute.strength
                 + " Total dexterity: " + this.heroAttribute.dexterity
@@ -150,5 +160,4 @@ public abstract class Hero {
 
         System.out.println(heroDetails);
     }
-
 }
