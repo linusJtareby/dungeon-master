@@ -21,10 +21,7 @@ public abstract class Hero {
     public ArrayList<ArmorTypes> validArmorTypes = new ArrayList<ArmorTypes>();
     public ArrayList<WeaponType> validWeaponTypes = new ArrayList<WeaponType>();
 
-    private int strength;
-    private int dexterity;
-    private int intelligence;
-    public HeroAttribute heroAttribute = new HeroAttribute(strength, dexterity, intelligence);
+    public HeroAttribute heroAttribute = new HeroAttribute(0, 0, 0);
 
     public Hero(String name) {
         this.name = name;
@@ -33,6 +30,7 @@ public abstract class Hero {
         this.equipment.put(Slots.Head, null);
         this.equipment.put(Slots.Body, null);
         this.equipment.put(Slots.Legs, null);
+
     }
 
     public int getLevel() {
@@ -103,41 +101,38 @@ public abstract class Hero {
 
     public int damage() {
         int heroDamage = 0;
+        if (this instanceof Wizard) {
+            heroDamage = (1 + this.heroAttribute.intelligence / 100);
 
-        // Casting type Weapon to the Item in the hashmap to be able to
-        // get to the weapon attributes.
-        Weapon equippedWeapon = (Weapon) this.equipment.get(Slots.Weapon);
+        } else if (this instanceof Archer) {
+            heroDamage = (1 + this.heroAttribute.dexterity / 100);
+
+        } else if (this instanceof Swashbuckler) {
+            heroDamage = (1 + this.heroAttribute.dexterity / 100);
+
+        } else if (this instanceof Barbarian) {
+            heroDamage = (1 + this.heroAttribute.strength / 100);
+        }
 
         if (this.equipment.get(Slots.Weapon) != null) {
+            Weapon equippedWeapon = (Weapon) this.equipment.get(Slots.Weapon);
 
-            if (this instanceof Wizard) {
-                heroDamage += (1 + this.heroAttribute.intelligence / 100) * equippedWeapon.weaponDamage;
-                this.equipment.get(Slots.Weapon);
-            }
-            if (this instanceof Archer) {
-                heroDamage += (1 + this.heroAttribute.dexterity / 100) * equippedWeapon.weaponDamage;
+            int totalDamage = heroDamage * equippedWeapon.weaponDamage;
+            return totalDamage;
 
-            }
-            if (this instanceof Swashbuckler) {
-                heroDamage += (1 + this.heroAttribute.dexterity / 100) * equippedWeapon.weaponDamage;
-
-            }
-            if (this instanceof Barbarian) {
-                heroDamage += (1 + this.heroAttribute.strength / 100) * equippedWeapon.weaponDamage;
-            }
         } else {
             return heroDamage;
         }
 
-        return heroDamage;
     }
 
     public int totalAttribute() {
         int totalAttributes = 0;
+
         for (Entry<Slots, Item> armorHash : this.equipment.entrySet()) {
             Armor armor = (Armor) armorHash.getValue();
             if (armor != null) {
-                totalAttributes = armor.armorAttributes.dexterity + armor.armorAttributes.intelligence
+                totalAttributes += armor.armorAttributes.dexterity + armor.armorAttributes.intelligence
                         + armor.armorAttributes.strength;
             }
         }
