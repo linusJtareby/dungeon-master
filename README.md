@@ -25,3 +25,19 @@ also a general testing-class for testing of all general methods in the Hero.java
 as well as damage while having different armor and weapon equipped.
 
 ## Installation
+
+To run the application you need to install:
+
+### Java
+
+### Maven
+
+### VSCode with Java-extension pack
+
+## Contributors
+
+This project is a private project based on an assignment from the noroff-accelerate-course.
+
+## Authors and acknowledgment
+
+The application is written by me, Linus Täreby alone.
