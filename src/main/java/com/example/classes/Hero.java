@@ -156,9 +156,9 @@ public abstract class Hero {
         heroDetails.append(" Name: " + this.name
                 + " Class: " + this.getClass().getSimpleName()
                 + " Level: " + this.level
-                + " Total strength: " + this.heroAttribute.strength
-                + " Total dexterity: " + this.heroAttribute.dexterity
-                + " Total intelligence: " + this.heroAttribute.intelligence
+                + " Total strength: " + this.totalAttribute().strength
+                + " Total dexterity: " + this.totalAttribute().dexterity
+                + " Total intelligence: " + this.totalAttribute().intelligence
                 + " Damage: " + this.damage()
                 + " " + this.equipment.toString());
 
