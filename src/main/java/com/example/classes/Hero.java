@@ -107,16 +107,16 @@ public abstract class Hero {
     public int damage() {
         int heroDamage = 0;
         if (this instanceof Wizard) {
-            heroDamage = (1 + this.heroAttribute.intelligence / 100);
+            heroDamage = (1 + this.totalAttribute().intelligence / 100);
 
         } else if (this instanceof Archer) {
-            heroDamage = (1 + this.heroAttribute.dexterity / 100);
+            heroDamage = (1 + this.totalAttribute().dexterity / 100);
 
         } else if (this instanceof Swashbuckler) {
-            heroDamage = (1 + this.heroAttribute.dexterity / 100);
+            heroDamage = (1 + this.totalAttribute().dexterity / 100);
 
         } else if (this instanceof Barbarian) {
-            heroDamage = (1 + this.heroAttribute.strength / 100);
+            heroDamage = (1 + this.totalAttribute().strength / 100);
         }
 
         if (this.equipment.get(Slots.Weapon) != null) {
@@ -128,21 +128,27 @@ public abstract class Hero {
         } else {
             return heroDamage;
         }
-
     }
 
-    public int totalAttribute() {
-        int totalAttributes = 0;
+    public HeroAttribute totalAttribute() {
+
+        HeroAttribute totalHeroAttribute = new HeroAttribute(0, 0, 0);
 
         for (Entry<Slots, Item> armorHash : this.equipment.entrySet()) {
-            Armor armor = (Armor) armorHash.getValue();
-            if (armor != null) {
-                totalAttributes += armor.armorAttributes.dexterity + armor.armorAttributes.intelligence
-                        + armor.armorAttributes.strength;
+            if (armorHash.getKey() != Slots.Weapon) {
+                Armor armor = (Armor) armorHash.getValue();
+                if (armor != null) {
+                    totalHeroAttribute.dexterity += armor.armorAttributes.dexterity;
+                    totalHeroAttribute.intelligence += armor.armorAttributes.intelligence;
+                    totalHeroAttribute.strength += armor.armorAttributes.strength;
+                }
             }
         }
-        return totalAttributes + this.heroAttribute.dexterity + this.heroAttribute.intelligence
-                + this.heroAttribute.strength;
+        totalHeroAttribute.dexterity += this.heroAttribute.dexterity;
+        totalHeroAttribute.intelligence += this.heroAttribute.intelligence;
+        totalHeroAttribute.strength += this.heroAttribute.strength;
+
+        return totalHeroAttribute;
     }
 
     public void display() {

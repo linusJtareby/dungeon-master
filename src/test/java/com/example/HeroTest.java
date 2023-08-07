@@ -35,7 +35,7 @@ public class HeroTest {
         Armor plate = new Armor("Plate1", ArmorTypes.Plate, Slots.Body, 2, 2, 2, 2);
         barbarian.levelUp();
         barbarian.equipArmor(Slots.Body, plate);
-        assertTrue(barbarian.totalAttribute() == 5 + 3 + 2 + 2 + 1 + 1 + 2 + 2 + 2);
+        assertTrue(barbarian.totalAttribute().dexterity == 2 + 2 + 2);
     }
 
     @Test
@@ -48,7 +48,7 @@ public class HeroTest {
         barbarian.equipArmor(Slots.Body, plate);
         barbarian.equipArmor(Slots.Legs, mail);
 
-        assertTrue(barbarian.totalAttribute() == 5 + 3 + 2 + 2 + 1 + 1 + 2 + 2 + 2 + 6 + 3 + 2);
+        assertTrue(barbarian.totalAttribute().intelligence == 1 + 1 + 2 + 2);
     }
 
     @Test
@@ -56,7 +56,8 @@ public class HeroTest {
         Hero barbarian = new Barbarian("Barbarian1");
         barbarian.levelUp();
         barbarian.levelUp();
-        assertTrue(barbarian.totalAttribute() == 5 + 3 + 2 + 2 + 1 + 1 + 3 + 2 + 1);
+        assertTrue(barbarian.totalAttribute().intelligence + barbarian.totalAttribute().dexterity
+                + barbarian.totalAttribute().strength == 5 + 2 + 1 + 3 + 3 + 2 + 2 + 1 + 1);
     }
 
     @Test
@@ -70,7 +71,15 @@ public class HeroTest {
         Hero archer = new Archer("Archer1");
         Weapon bow = new Weapon("Bow1", ItemType.Weapon, Slots.Weapon, WeaponType.Bow, 1, 10);
         archer.equipWeapon(bow);
-        assertTrue(archer.damage() == 10 * (1 + archer.heroAttribute.dexterity / 100));
+        assertTrue(archer.damage() == 10 * (1 + 7 / 100));
+    }
+
+    @Test
+    public void testDamage_armorEquipped() throws InvalidArmorException {
+        Hero archer = new Archer("Archer1");
+        Armor mail = new Armor("mai1", ArmorTypes.Mail, Slots.Body, 1, 0, 3, 0);
+        archer.equipArmor(Slots.Legs, mail);
+        assertTrue(archer.damage() == (1 + (7 + 3) / 100));
     }
 
 }
