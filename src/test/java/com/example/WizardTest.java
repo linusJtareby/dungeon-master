@@ -13,6 +13,8 @@ import com.example.classes.Item.WeaponType;
 import com.example.classes.heroClasses.Wizard;
 import com.example.classes.itemClasses.Armor;
 import com.example.classes.itemClasses.Weapon;
+import com.example.exceptions.InvalidArmorException;
+import com.example.exceptions.InvalidWeaponException;
 
 public class WizardTest {
 
@@ -45,7 +47,7 @@ public class WizardTest {
     }
 
     @Test
-    public void testEquipArmor_archer() {
+    public void testEquipArmor_archer() throws InvalidArmorException {
         Hero wizard = new Wizard("Wizard1");
         Armor cloth = new Armor("Cloth1", ArmorTypes.Cloth, Slots.Body, 1, 2, 2, 2);
         wizard.equipArmor(Slots.Body, cloth);
@@ -58,7 +60,7 @@ public class WizardTest {
         Weapon bow = new Weapon("Bow1", ItemType.Weapon, Slots.Weapon, WeaponType.Bow, 1, 10);
         Weapon dagger = new Weapon("Dagger1", ItemType.Weapon, Slots.Weapon, WeaponType.Dagger, 1, 10);
 
-        assertThrowsExactly(IllegalAccessError.class, () -> {
+        assertThrowsExactly(InvalidWeaponException.class, () -> {
             wizard.equipWeapon(bow);
             wizard.equipWeapon(dagger);
         });
@@ -70,7 +72,7 @@ public class WizardTest {
         Armor cloth = new Armor("Cloth1", ArmorTypes.Cloth, Slots.Body, 1, 2, 2, 2);
         Armor leather = new Armor("Leather1", ArmorTypes.Leather, Slots.Body, 1, 2, 2, 2);
 
-        assertThrowsExactly(IllegalAccessError.class, () -> {
+        assertThrowsExactly(InvalidArmorException.class, () -> {
             wizard.equipArmor(Slots.Body, leather);
             wizard.equipArmor(Slots.Weapon, cloth);
         });

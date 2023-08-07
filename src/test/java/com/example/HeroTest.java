@@ -15,6 +15,8 @@ import com.example.classes.heroClasses.Barbarian;
 import com.example.classes.heroClasses.Swashbuckler;
 import com.example.classes.itemClasses.Armor;
 import com.example.classes.itemClasses.Weapon;
+import com.example.exceptions.InvalidArmorException;
+import com.example.exceptions.InvalidWeaponException;
 
 public class HeroTest {
 
@@ -22,13 +24,13 @@ public class HeroTest {
     public void testEquipArmor_invalid_level() {
         Hero barbarian = new Barbarian("Barbarian1");
         Armor plate = new Armor("Plate1", ArmorTypes.Plate, Slots.Body, 2, 2, 2, 2);
-        assertThrowsExactly(IllegalAccessError.class, () -> {
+        assertThrowsExactly(InvalidArmorException.class, () -> {
             barbarian.equipArmor(Slots.Body, plate);
         });
     }
 
     @Test
-    public void testTotalAttributes_equippedArmor_levelTwo() {
+    public void testTotalAttributes_equippedArmor_levelTwo() throws InvalidArmorException {
         Hero barbarian = new Barbarian("Barbarian1");
         Armor plate = new Armor("Plate1", ArmorTypes.Plate, Slots.Body, 2, 2, 2, 2);
         barbarian.levelUp();
@@ -37,7 +39,7 @@ public class HeroTest {
     }
 
     @Test
-    public void testTotalAttributes_equippedTwoArmor_levelTwo() {
+    public void testTotalAttributes_equippedTwoArmor_levelTwo() throws InvalidArmorException {
         Hero barbarian = new Barbarian("Barbarian1");
         Armor plate = new Armor("Plate1", ArmorTypes.Plate, Slots.Body, 2, 2, 2, 2);
         Armor mail = new Armor("Cloth1", ArmorTypes.Mail, Slots.Legs, 2, 6, 3, 2);
@@ -64,7 +66,7 @@ public class HeroTest {
     }
 
     @Test
-    public void testDamage_weaponEquipped() {
+    public void testDamage_weaponEquipped() throws InvalidWeaponException {
         Hero archer = new Archer("Archer1");
         Weapon bow = new Weapon("Bow1", ItemType.Weapon, Slots.Weapon, WeaponType.Bow, 1, 10);
         archer.equipWeapon(bow);

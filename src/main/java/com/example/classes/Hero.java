@@ -13,6 +13,8 @@ import com.example.classes.heroClasses.Swashbuckler;
 import com.example.classes.heroClasses.Wizard;
 import com.example.classes.itemClasses.Armor;
 import com.example.classes.itemClasses.Weapon;
+import com.example.exceptions.InvalidArmorException;
+import com.example.exceptions.InvalidWeaponException;
 
 public abstract class Hero {
     private String name;
@@ -71,35 +73,34 @@ public abstract class Hero {
         }
     }
 
-    public void equipArmor(Slots slot, Armor armorToEquip) {
+    public void equipArmor(Slots slot, Armor armorToEquip) throws InvalidArmorException {
         if (slot == Slots.Weapon) {
-            System.out.println("You can't equip armor to your weapon-slot");
+            throw new InvalidArmorException("You can't equip armor to your weapon-slot");
         } else {
             if (armorToEquip.requiredLevel <= this.level) {
                 if (this.validArmorTypes.contains(armorToEquip.armorType)) {
                     this.equipment.put(slot, armorToEquip);
 
                 } else {
-                    throw new IllegalAccessError("\"This armor is not valid for your class\"");
+                    throw new InvalidArmorException("This type of armor is not valid for your class");
                 }
             } else {
-                throw new IllegalAccessError(
+                throw new InvalidArmorException(
                         "\"You need to be a level " + armorToEquip.requiredLevel + " to equip this weapon\"");
             }
         }
     }
 
-    public void equipWeapon(Weapon weaponToEquip) {
+    public void equipWeapon(Weapon weaponToEquip) throws InvalidWeaponException {
         if (weaponToEquip.requiredLevel <= this.level) {
             if (this.validWeaponTypes.contains(weaponToEquip.weaponType)) {
                 this.equipment.put(Slots.Weapon, weaponToEquip);
             } else {
-                throw new IllegalAccessError("\"This weapon is not valid for your class\"");
+                throw new InvalidWeaponException("\"This weapon is not valid for your class\"");
             }
         } else {
-            throw new IllegalAccessError(
+            throw new InvalidWeaponException(
                     "\"You need to be a level " + weaponToEquip.requiredLevel + " to equip this weapon\"");
-
         }
     }
 

@@ -13,6 +13,8 @@ import com.example.classes.Item.WeaponType;
 import com.example.classes.heroClasses.Swashbuckler;
 import com.example.classes.itemClasses.Armor;
 import com.example.classes.itemClasses.Weapon;
+import com.example.exceptions.InvalidArmorException;
+import com.example.exceptions.InvalidWeaponException;
 
 public class SwashbucklerTest {
     @Test
@@ -44,7 +46,7 @@ public class SwashbucklerTest {
     }
 
     @Test
-    public void testEquipArmor_swashbuckler() {
+    public void testEquipArmor_swashbuckler() throws InvalidArmorException {
         Hero swashbuckler = new Swashbuckler("Swashbuckler1");
         Armor mail = new Armor("Mail1", ArmorTypes.Mail, Slots.Body, 1, 2, 2, 2);
         swashbuckler.equipArmor(Slots.Body, mail);
@@ -57,7 +59,7 @@ public class SwashbucklerTest {
         Weapon bow = new Weapon("Bow1", ItemType.Weapon, Slots.Weapon, WeaponType.Bow, 1, 10);
         Weapon hatchet = new Weapon("Hatchet1", ItemType.Weapon, Slots.Weapon, WeaponType.Hatchet, 1, 10);
 
-        assertThrowsExactly(IllegalAccessError.class, () -> {
+        assertThrowsExactly(InvalidWeaponException.class, () -> {
             swashbuckler.equipWeapon(bow);
             swashbuckler.equipWeapon(hatchet);
         });
@@ -69,7 +71,7 @@ public class SwashbucklerTest {
         Armor plate = new Armor("Plate1", ArmorTypes.Plate, Slots.Body, 1, 2, 2, 2);
         Armor leather = new Armor("Leather1", ArmorTypes.Leather, Slots.Body, 1, 2, 2, 2);
 
-        assertThrowsExactly(IllegalAccessError.class, () -> {
+        assertThrowsExactly(InvalidArmorException.class, () -> {
             swashbuckler.equipArmor(Slots.Body, plate);
             swashbuckler.equipArmor(Slots.Weapon, leather);
         });
