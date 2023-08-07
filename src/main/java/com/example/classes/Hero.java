@@ -73,22 +73,20 @@ public abstract class Hero {
         }
     }
 
-    public void equipArmor(Slots slot, Armor armorToEquip) throws InvalidArmorException {
-        if (slot == Slots.Weapon) {
-            throw new InvalidArmorException("You can't equip armor to your weapon-slot");
-        } else {
-            if (armorToEquip.requiredLevel <= this.level) {
-                if (this.validArmorTypes.contains(armorToEquip.armorType)) {
-                    this.equipment.put(slot, armorToEquip);
+    public void equipArmor(Armor armorToEquip) throws InvalidArmorException {
 
-                } else {
-                    throw new InvalidArmorException("This type of armor is not valid for your class");
-                }
+        if (armorToEquip.requiredLevel <= this.level) {
+            if (this.validArmorTypes.contains(armorToEquip.armorType)) {
+                this.equipment.put(armorToEquip.slot, armorToEquip);
+
             } else {
-                throw new InvalidArmorException(
-                        "\"You need to be a level " + armorToEquip.requiredLevel + " to equip this weapon\"");
+                throw new InvalidArmorException("This type of armor is not valid for your class");
             }
+        } else {
+            throw new InvalidArmorException(
+                    "\"You need to be a level " + armorToEquip.requiredLevel + " to equip this weapon\"");
         }
+
     }
 
     public void equipWeapon(Weapon weaponToEquip) throws InvalidWeaponException {

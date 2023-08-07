@@ -50,7 +50,7 @@ public class BarbarianTest {
     public void testEquipArmor_barbarian() throws InvalidArmorException {
         Hero barbarian = new Barbarian("Barbarian1");
         Armor mail = new Armor("Mail1", ArmorTypes.Mail, Slots.Body, 1, 2, 2, 2);
-        barbarian.equipArmor(Slots.Body, mail);
+        barbarian.equipArmor(mail);
         assertTrue(barbarian.getEquipment().get(Slots.Body) == mail);
     }
 
@@ -67,14 +67,12 @@ public class BarbarianTest {
     }
 
     @Test
-    public void testEquipArmor_invalidArmorType_invalidArmorSlots_barbarian() {
+    public void testEquipArmor_invalidArmorType_barbarian() {
         Hero barbarian = new Barbarian("Barbarian1");
-        Armor plate = new Armor("Plate1", ArmorTypes.Plate, Slots.Body, 1, 2, 2, 2);
         Armor leather = new Armor("Leather1", ArmorTypes.Leather, Slots.Body, 1, 2, 2, 2);
 
         assertThrowsExactly(InvalidArmorException.class, () -> {
-            barbarian.equipArmor(Slots.Body, leather);
-            barbarian.equipArmor(Slots.Weapon, plate);
+            barbarian.equipArmor(leather);
         });
     }
 }

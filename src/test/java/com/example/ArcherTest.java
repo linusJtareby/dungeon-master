@@ -50,7 +50,7 @@ public class ArcherTest {
     public void testEquipArmor_archer() throws InvalidArmorException {
         Hero archer = new Archer("Archer1");
         Armor mail = new Armor("Mail1", ArmorTypes.Mail, Slots.Body, 1, 2, 2, 2);
-        archer.equipArmor(Slots.Body, mail);
+        archer.equipArmor(mail);
         assertTrue(archer.getEquipment().get(Slots.Body) == mail);
     }
 
@@ -64,14 +64,12 @@ public class ArcherTest {
     }
 
     @Test
-    public void testEquipArmor_invalidArmorType_invalidArmorSlots_archer() {
+    public void testEquipArmor_invalidArmorType_archer() {
         Hero archer = new Archer("Archer1");
         Armor plate = new Armor("Plate1", ArmorTypes.Plate, Slots.Body, 1, 2, 2, 2);
-        Armor mail = new Armor("Mail1", ArmorTypes.Mail, Slots.Body, 1, 2, 2, 2);
 
         assertThrowsExactly(InvalidArmorException.class, () -> {
-            archer.equipArmor(Slots.Body, plate);
-            archer.equipArmor(Slots.Weapon, mail);
+            archer.equipArmor(plate);
         });
     }
 

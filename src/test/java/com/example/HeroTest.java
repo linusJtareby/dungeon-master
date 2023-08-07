@@ -25,7 +25,7 @@ public class HeroTest {
         Hero barbarian = new Barbarian("Barbarian1");
         Armor plate = new Armor("Plate1", ArmorTypes.Plate, Slots.Body, 2, 2, 2, 2);
         assertThrowsExactly(InvalidArmorException.class, () -> {
-            barbarian.equipArmor(Slots.Body, plate);
+            barbarian.equipArmor(plate);
         });
     }
 
@@ -34,7 +34,7 @@ public class HeroTest {
         Hero barbarian = new Barbarian("Barbarian1");
         Armor plate = new Armor("Plate1", ArmorTypes.Plate, Slots.Body, 2, 2, 2, 2);
         barbarian.levelUp();
-        barbarian.equipArmor(Slots.Body, plate);
+        barbarian.equipArmor(plate);
         assertTrue(barbarian.totalAttribute().dexterity == 2 + 2 + 2);
     }
 
@@ -45,8 +45,8 @@ public class HeroTest {
         Armor mail = new Armor("Cloth1", ArmorTypes.Mail, Slots.Legs, 2, 6, 3, 2);
 
         barbarian.levelUp();
-        barbarian.equipArmor(Slots.Body, plate);
-        barbarian.equipArmor(Slots.Legs, mail);
+        barbarian.equipArmor(plate);
+        barbarian.equipArmor(mail);
 
         assertTrue(barbarian.totalAttribute().intelligence == 1 + 1 + 2 + 2);
     }
@@ -62,7 +62,7 @@ public class HeroTest {
 
     @Test
     public void testDamage() {
-        Swashbuckler swashbuckler = new Swashbuckler("Swashbuckler1");
+        Hero swashbuckler = new Swashbuckler("Swashbuckler1");
         assertTrue(swashbuckler.damage() == 1 + swashbuckler.heroAttribute.dexterity / 100);
     }
 
@@ -78,7 +78,7 @@ public class HeroTest {
     public void testDamage_armorEquipped() throws InvalidArmorException {
         Hero archer = new Archer("Archer1");
         Armor mail = new Armor("mai1", ArmorTypes.Mail, Slots.Body, 1, 0, 3, 0);
-        archer.equipArmor(Slots.Legs, mail);
+        archer.equipArmor(mail);
         assertTrue(archer.damage() == (1 + (7 + 3) / 100));
     }
 }

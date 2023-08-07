@@ -50,7 +50,7 @@ public class WizardTest {
     public void testEquipArmor_archer() throws InvalidArmorException {
         Hero wizard = new Wizard("Wizard1");
         Armor cloth = new Armor("Cloth1", ArmorTypes.Cloth, Slots.Body, 1, 2, 2, 2);
-        wizard.equipArmor(Slots.Body, cloth);
+        wizard.equipArmor(cloth);
         assertTrue(wizard.getEquipment().get(Slots.Body) == cloth);
     }
 
@@ -67,14 +67,12 @@ public class WizardTest {
     }
 
     @Test
-    public void testEquipArmor_invalidArmorType_invalidArmorSlots_wizard() {
+    public void testEquipArmor_invalidArmorType_wizard() {
         Hero wizard = new Wizard("Wizard1");
-        Armor cloth = new Armor("Cloth1", ArmorTypes.Cloth, Slots.Body, 1, 2, 2, 2);
         Armor leather = new Armor("Leather1", ArmorTypes.Leather, Slots.Body, 1, 2, 2, 2);
 
         assertThrowsExactly(InvalidArmorException.class, () -> {
-            wizard.equipArmor(Slots.Body, leather);
-            wizard.equipArmor(Slots.Weapon, cloth);
+            wizard.equipArmor(leather);
         });
     }
 }

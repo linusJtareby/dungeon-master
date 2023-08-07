@@ -49,7 +49,7 @@ public class SwashbucklerTest {
     public void testEquipArmor_swashbuckler() throws InvalidArmorException {
         Hero swashbuckler = new Swashbuckler("Swashbuckler1");
         Armor mail = new Armor("Mail1", ArmorTypes.Mail, Slots.Body, 1, 2, 2, 2);
-        swashbuckler.equipArmor(Slots.Body, mail);
+        swashbuckler.equipArmor(mail);
         assertTrue(swashbuckler.getEquipment().get(Slots.Body) == mail);
     }
 
@@ -66,14 +66,12 @@ public class SwashbucklerTest {
     }
 
     @Test
-    public void testEquipArmor_invalidArmorType_invalidArmorSlots_swashbuckler() {
+    public void testEquipArmor_invalidArmorType_swashbuckler() {
         Hero swashbuckler = new Swashbuckler("Swashbuckler1");
         Armor plate = new Armor("Plate1", ArmorTypes.Plate, Slots.Body, 1, 2, 2, 2);
-        Armor leather = new Armor("Leather1", ArmorTypes.Leather, Slots.Body, 1, 2, 2, 2);
 
         assertThrowsExactly(InvalidArmorException.class, () -> {
-            swashbuckler.equipArmor(Slots.Body, plate);
-            swashbuckler.equipArmor(Slots.Weapon, leather);
+            swashbuckler.equipArmor(plate);
         });
     }
 }
