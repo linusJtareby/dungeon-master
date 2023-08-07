@@ -81,5 +81,4 @@ public class HeroTest {
         archer.equipArmor(Slots.Legs, mail);
         assertTrue(archer.damage() == (1 + (7 + 3) / 100));
     }
-
 }
