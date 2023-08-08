@@ -28,11 +28,13 @@ as well as damage while having different armor and weapon equipped.
 
 To run the application you need to install:
 
-### Java
+-- Java 20.0 --
 
-### Maven
+-- Maven --
 
-### VSCode with Java-extension pack
+-- VSCode with Java-extension pack --
+
+For testing: -- JUnit 5 --
 
 ## Contributors
 

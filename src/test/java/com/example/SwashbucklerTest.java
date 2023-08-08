@@ -32,7 +32,7 @@ public class SwashbucklerTest {
     }
 
     @Test
-    public void testLevelUp_swashbuckler() {
+    public void levelUp_swashbuckler_lvl2_heroAttributes_increased() {
         Hero swashbuckler = new Swashbuckler("Swashbuckler1");
         swashbuckler.levelUp();
         int expectedIntelligence = 2;
@@ -46,7 +46,7 @@ public class SwashbucklerTest {
     }
 
     @Test
-    public void testEquipArmor_swashbuckler() throws InvalidArmorException {
+    public void equipArmor_swashbuckler_weaponShouldBeEquippedToHero() throws InvalidArmorException {
         Hero swashbuckler = new Swashbuckler("Swashbuckler1");
         Armor mail = new Armor("Mail1", ArmorTypes.Mail, Slots.Body, 1, 2, 2, 2);
         swashbuckler.equipArmor(mail);
@@ -54,7 +54,7 @@ public class SwashbucklerTest {
     }
 
     @Test
-    public void testEquipWeapon_invalid_weaponType_swashbuckler() {
+    public void equipWeapon_weaponType_swashbuckler_shouldThrowInvalidWeaponException() {
         Hero swashbuckler = new Swashbuckler("Swashbuckler1");
         Weapon bow = new Weapon("Bow1", ItemType.Weapon, Slots.Weapon, WeaponType.Bow, 1, 10);
         Weapon hatchet = new Weapon("Hatchet1", ItemType.Weapon, Slots.Weapon, WeaponType.Hatchet, 1, 10);
@@ -66,7 +66,7 @@ public class SwashbucklerTest {
     }
 
     @Test
-    public void testEquipArmor_invalidArmorType_swashbuckler() {
+    public void equipArmor_invalidArmorType_swashbuckler_shouldThrowInvalidArmorException() {
         Hero swashbuckler = new Swashbuckler("Swashbuckler1");
         Armor plate = new Armor("Plate1", ArmorTypes.Plate, Slots.Body, 1, 2, 2, 2);
 

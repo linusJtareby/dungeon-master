@@ -33,7 +33,7 @@ public class BarbarianTest {
     }
 
     @Test
-    public void testLevelUp_barbarian() {
+    public void levelUp_barbarian__lvl2_heroAttributes_increased() {
         Hero barbarian = new Barbarian("Barbarian1");
         barbarian.levelUp();
         int expectedIntelligence = 2;
@@ -47,7 +47,7 @@ public class BarbarianTest {
     }
 
     @Test
-    public void testEquipArmor_barbarian() throws InvalidArmorException {
+    public void equipArmor_barbarian_weaponShouldBeEquippedToHero() throws InvalidArmorException {
         Hero barbarian = new Barbarian("Barbarian1");
         Armor mail = new Armor("Mail1", ArmorTypes.Mail, Slots.Body, 1, 2, 2, 2);
         barbarian.equipArmor(mail);
@@ -55,7 +55,7 @@ public class BarbarianTest {
     }
 
     @Test
-    public void testEquipWeapon_invalid_weaponType_barbarian() {
+    public void equipWeapon_weaponType_barbarian__shouldThrowInvalidWeaponException() {
         Hero barbarian = new Barbarian("Barbarian1");
         Weapon bow = new Weapon("Bow1", ItemType.Weapon, Slots.Weapon, WeaponType.Bow, 1, 10);
         Weapon dagger = new Weapon("Dagger1", ItemType.Weapon, Slots.Weapon, WeaponType.Dagger, 1, 10);
@@ -67,7 +67,7 @@ public class BarbarianTest {
     }
 
     @Test
-    public void testEquipArmor_invalidArmorType_barbarian() {
+    public void equipArmor_invalidArmorType_barbarian_shouldThrowInvalidArmorException() {
         Hero barbarian = new Barbarian("Barbarian1");
         Armor leather = new Armor("Leather1", ArmorTypes.Leather, Slots.Body, 1, 2, 2, 2);
 

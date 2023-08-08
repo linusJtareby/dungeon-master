@@ -33,7 +33,7 @@ public class ArcherTest {
     }
 
     @Test
-    public void testLevelUp_archer() {
+    public void levelUp_archer_lvl2_heroAttributes_increased() {
         Hero archer = new Archer("Archer1");
         archer.levelUp();
         int expectedIntelligence = 2;
@@ -47,7 +47,7 @@ public class ArcherTest {
     }
 
     @Test
-    public void testEquipArmor_archer() throws InvalidArmorException {
+    public void equipArmor_archer__weaponShouldBeEquippedToHero() throws InvalidArmorException {
         Hero archer = new Archer("Archer1");
         Armor mail = new Armor("Mail1", ArmorTypes.Mail, Slots.Body, 1, 2, 2, 2);
         archer.equipArmor(mail);
@@ -55,7 +55,7 @@ public class ArcherTest {
     }
 
     @Test
-    public void testEquipWeapon_invalid_weaponType_archer() {
+    public void equipWeapon_weaponType_archer_shouldThrowInvalidWeaponException() {
         Hero archer = new Archer("Archer1");
         Weapon staff = new Weapon("Staff1", ItemType.Weapon, Slots.Weapon, WeaponType.Staff, 1, 10);
         assertThrowsExactly(InvalidWeaponException.class, () -> {
@@ -64,7 +64,7 @@ public class ArcherTest {
     }
 
     @Test
-    public void testEquipArmor_invalidArmorType_archer() {
+    public void equipArmor_invalidArmorType_archer_shouldThrowInvalidArmorException() {
         Hero archer = new Archer("Archer1");
         Armor plate = new Armor("Plate1", ArmorTypes.Plate, Slots.Body, 1, 2, 2, 2);
 

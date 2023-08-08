@@ -33,7 +33,7 @@ public class WizardTest {
     }
 
     @Test
-    public void testLevelUp_archer() {
+    public void levelUp_archer__lvl2_heroAttributes_increased() {
         Hero wizard = new Wizard("Wizard1");
         wizard.levelUp();
         int expectedIntelligence = 13;
@@ -47,7 +47,7 @@ public class WizardTest {
     }
 
     @Test
-    public void testEquipArmor_archer() throws InvalidArmorException {
+    public void equipArmor_wizard_weaponShouldBeEquippedToHero() throws InvalidArmorException {
         Hero wizard = new Wizard("Wizard1");
         Armor cloth = new Armor("Cloth1", ArmorTypes.Cloth, Slots.Body, 1, 2, 2, 2);
         wizard.equipArmor(cloth);
@@ -55,7 +55,7 @@ public class WizardTest {
     }
 
     @Test
-    public void testEquipWeapon_invalid_weaponType_wizard() {
+    public void equipWeapon_weaponType_wizard_shouldThrowInvalidWeaponException() {
         Hero wizard = new Wizard("Wizard1");
         Weapon bow = new Weapon("Bow1", ItemType.Weapon, Slots.Weapon, WeaponType.Bow, 1, 10);
         Weapon dagger = new Weapon("Dagger1", ItemType.Weapon, Slots.Weapon, WeaponType.Dagger, 1, 10);
@@ -67,7 +67,7 @@ public class WizardTest {
     }
 
     @Test
-    public void testEquipArmor_invalidArmorType_wizard() {
+    public void equipArmor_invalidArmorType_wizard_shouldThrowInvalidArmorException() {
         Hero wizard = new Wizard("Wizard1");
         Armor leather = new Armor("Leather1", ArmorTypes.Leather, Slots.Body, 1, 2, 2, 2);
 
