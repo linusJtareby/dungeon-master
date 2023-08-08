@@ -1,7 +1,11 @@
 package com.example;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 import org.junit.jupiter.api.Test;
 
@@ -63,13 +67,13 @@ public class HeroTest {
     }
 
     @Test
-    public void testDamage_heroShouldHaveCorrectDamage() {
+    public void damage_heroShouldHaveCorrectDamage() {
         Hero swashbuckler = new Swashbuckler("Swashbuckler1");
         assertTrue(swashbuckler.damage() == 1 + swashbuckler.heroAttribute.dexterity / 100);
     }
 
     @Test
-    public void testDamage_weaponEquipped_heroShouldHaveCorrectDamage() throws InvalidWeaponException {
+    public void damage_weaponEquipped_heroShouldHaveCorrectDamage() throws InvalidWeaponException {
         Hero archer = new Archer("Archer1");
         Weapon bow = new Weapon("Bow1", ItemType.Weapon, Slots.Weapon, WeaponType.Bow, 1, 10);
         archer.equipWeapon(bow);
@@ -77,10 +81,23 @@ public class HeroTest {
     }
 
     @Test
-    public void testDamage_armorEquipped_heroShouldHaveCorrectDamage() throws InvalidArmorException {
+    public void damage_armorEquipped_heroShouldHaveCorrectDamage() throws InvalidArmorException {
         Hero archer = new Archer("Archer1");
         Armor mail = new Armor("mai1", ArmorTypes.Mail, Slots.Body, 1, 0, 3, 0);
         archer.equipArmor(mail);
-        assertTrue(archer.damage() == (1 + (7 + 3) / 100));
+        assertEquals(archer.damage(), (1 + (7 + 3) / 100));
+    }
+
+    @Test
+    public void display_hero_lvl1_noEquipment_correctHeroAttributeShouldBeDisplayed() {
+        Hero hero = new Archer("Archer1");
+        String expectedOutput = "Name: Archer1 Class: Archer Level: 1 Total strength: 1 Total dexterity: 7 Total intelligence: 1 Damage: 1 {Head=null, Weapon=null, Legs=null, Body=null}";
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+        hero.display();
+        System.setOut(System.out);
+        String actualOutput = outputStream.toString().trim();
+
+        assertEquals(expectedOutput, actualOutput);
     }
 }
